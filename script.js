@@ -74,7 +74,7 @@ var longestCommonPrefix = function (strs) {
   return commonPrefix.join("");
 };
 
-// 5. https://leetcode.com/problems/valid-parentheses/submissions/
+// 5. https://leetcode.com/problems/valid-parentheses/
 
 var isValid = function (s) {
   const stack = [];
@@ -99,7 +99,7 @@ var isValid = function (s) {
   return stack.length === 0;
 };
 
-// 6. https://leetcode.com/problems/remove-duplicates-from-sorted-array/submissions/
+// 6. https://leetcode.com/problems/remove-duplicates-from-sorted-array/
 var removeDuplicates = function (nums) {
   if (nums.length === 0) {
     return 0;
@@ -116,7 +116,7 @@ var removeDuplicates = function (nums) {
 
   return uniqueCount;
 };
-// 7. https://leetcode.com/problems/remove-element/submissions/
+// 7. https://leetcode.com/problems/remove-element/
 
 var removeElement = function (nums, val) {
   let k = 0;
@@ -131,7 +131,7 @@ var removeElement = function (nums, val) {
   return k;
 };
 
-// 8. https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/submissions/
+// 8. https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
 
 var strStr = function (haystack, needle) {
   if (needle === "") {
@@ -147,7 +147,7 @@ var strStr = function (haystack, needle) {
   return -1;
 };
 
-// 9. https://leetcode.com/problems/search-insert-position/submissions/
+// 9. https://leetcode.com/problems/search-insert-position/
 
 var searchInsert = function (nums, target) {
   let left = 0;
@@ -168,7 +168,7 @@ var searchInsert = function (nums, target) {
   return left;
 };
 
-// 10. https://leetcode.com/problems/length-of-last-word/submissions/
+// 10. https://leetcode.com/problems/length-of-last-word/
 
 var lengthOfLastWord = function (s) {
   s = s.trim();
@@ -299,3 +299,164 @@ var merge = function (nums1, m, nums2, n) {
     k--;
   }
 };
+
+// 16. https://leetcode.com/problems/power-of-two/
+
+var isPowerOfTwo = function (n) {
+  return n > 0 && (n & (n - 1)) === 0;
+};
+
+// 17. https://leetcode.com/problems/valid-anagram/
+
+var isAnagram = function (s, t) {
+  if (s.length !== t.length) {
+    return false;
+  }
+
+  const sortedS = s.split("").sort().join("");
+  const sortedT = t.split("").sort().join("");
+
+  return sortedS === sortedT;
+};
+
+// 18. https://leetcode.com/problems/add-digits/
+
+var addDigits = function (num) {
+  if (num === 0) {
+    return 0;
+  }
+
+  return num % 9 === 0 ? 9 : num % 9;
+};
+
+// 19. https://leetcode.com/problems/power-of-three/
+
+var isPowerOfThree = function (n) {
+  if (n <= 0) {
+    return false;
+  }
+
+  while (n % 3 === 0) {
+    n /= 3;
+  }
+  return n === 1;
+};
+
+// 20. https://leetcode.com/problems/power-of-four/
+
+var isPowerOfFour = function (n) {
+  if (n <= 0) {
+    return false;
+  }
+
+  if ((n & (n - 1)) !== 0) {
+    return false;
+  }
+
+  return (n & 0x55555555) !== 0;
+};
+
+// 21. https://leetcode.com/problems/reverse-string/
+
+function reverseString(s) {
+  let left = 0;
+  let right = s.length - 1;
+
+  while (left < right) {
+    const temp = s[left];
+    s[left] = s[right];
+    s[right] = temp;
+
+    left++;
+    right--;
+  }
+}
+
+// 22. https://leetcode.com/problems/reverse-vowels-of-a-string/
+
+function reverseVowels(s) {
+  const vowels = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
+
+  const sArray = s.split('');
+
+  let left = 0;
+  let right = sArray.length - 1;
+
+  while (left < right) {
+
+    while (left < right && !vowels.has(sArray[left])) {
+      left++;
+    }
+
+    while (left < right && !vowels.has(sArray[right])) {
+      right--;
+    }
+
+    const temp = sArray[left];
+    sArray[left] = sArray[right];
+    sArray[right] = temp;
+
+    left++;
+    right--;
+  }
+
+  return sArray.join('');
+}
+
+
+// 23. https://leetcode.com/problems/valid-perfect-square/
+
+function isPerfectSquare(num) {
+  if (num === 0 || num === 1) {
+    return true;
+  }
+
+  let left = 1;
+  let right = Math.floor(num / 2);
+
+  while (left <= right) {
+    const mid = left + Math.floor((right - left) / 2);
+    const square = mid * mid;
+
+    if (square === num) {
+      return true; 
+    } else if (square < num) {
+      left = mid + 1; 
+    } else {
+      right = mid - 1; 
+    }
+  }
+
+  return false; 
+}
+
+// 24. https://leetcode.com/problems/ransom-note/
+
+function canConstruct(ransomNote, magazine) {
+  const letterCount = {};
+
+  for (const char of magazine) {
+    letterCount[char] = (letterCount[char] || 0) + 1;
+  }
+
+  for (const char of ransomNote) {
+    if (!letterCount[char]) {
+      return false;
+    }
+    letterCount[char]--;
+  }
+
+  return true;
+}
+
+// 25. https://leetcode.com/problems/find-the-difference/
+
+function findTheDifference(s, t) {
+  let result = 0;
+
+  for (const char of s + t) {
+    result ^= char.charCodeAt(0);
+  }
+
+  return String.fromCharCode(result);
+}
