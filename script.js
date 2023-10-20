@@ -375,15 +375,14 @@ function reverseString(s) {
 // 22. https://leetcode.com/problems/reverse-vowels-of-a-string/
 
 function reverseVowels(s) {
-  const vowels = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
+  const vowels = new Set(["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]);
 
-  const sArray = s.split('');
+  const sArray = s.split("");
 
   let left = 0;
   let right = sArray.length - 1;
 
   while (left < right) {
-
     while (left < right && !vowels.has(sArray[left])) {
       left++;
     }
@@ -400,9 +399,8 @@ function reverseVowels(s) {
     right--;
   }
 
-  return sArray.join('');
+  return sArray.join("");
 }
-
 
 // 23. https://leetcode.com/problems/valid-perfect-square/
 
@@ -419,15 +417,15 @@ function isPerfectSquare(num) {
     const square = mid * mid;
 
     if (square === num) {
-      return true; 
+      return true;
     } else if (square < num) {
-      left = mid + 1; 
+      left = mid + 1;
     } else {
-      right = mid - 1; 
+      right = mid - 1;
     }
   }
 
-  return false; 
+  return false;
 }
 
 // 24. https://leetcode.com/problems/ransom-note/
@@ -460,3 +458,289 @@ function findTheDifference(s, t) {
 
   return String.fromCharCode(result);
 }
+
+// 26. https://leetcode.com/problems/fizz-buzz/
+
+var fizzBuzz = function (n) {
+  const result = [];
+
+  for (let i = 1; i <= n; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      result.push("FizzBuzz");
+    } else if (i % 3 === 0) {
+      result.push("Fizz");
+    } else if (i % 5 === 0) {
+      result.push("Buzz");
+    } else {
+      result.push(i.toString());
+    }
+  }
+
+  return result;
+};
+
+// 27. https://leetcode.com/problems/arranging-coins/
+
+var arrangeCoins = function (n) {
+  let left = 0;
+  let right = n;
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    const coinsRequired = (mid * (mid + 1)) / 2;
+
+    if (coinsRequired === n) {
+      return mid;
+    } else if (coinsRequired < n) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+
+  return right;
+};
+
+// 28. https://leetcode.com/problems/license-key-formatting/
+
+var licenseKeyFormatting = function (s, k) {
+  const cleanedStr = s.replace(/-/g, "").toUpperCase();
+
+  const len = cleanedStr.length;
+  let result = "";
+
+  let firstGroupLength = len % k;
+
+  if (firstGroupLength > 0) {
+    result += cleanedStr.substr(0, firstGroupLength) + "-";
+  }
+
+  for (let i = firstGroupLength; i < len; i += k) {
+    result += cleanedStr.substr(i, k) + "-";
+  }
+
+  return result.slice(0, -1);
+};
+
+// 29. https://leetcode.com/problems/max-consecutive-ones/
+
+var findMaxConsecutiveOnes = function (nums) {
+  let maxCount = 0;
+  let currentCount = 0;
+
+  for (let num of nums) {
+    if (num === 1) {
+      currentCount++;
+      maxCount = Math.max(maxCount, currentCount);
+    } else {
+      currentCount = 0;
+    }
+  }
+
+  return maxCount;
+};
+
+// 30. https://leetcode.com/problems/construct-the-rectangle/
+
+var constructRectangle = function (area) {
+  let width = 1;
+  let length = area;
+
+  for (let w = 2; w * w <= area; w++) {
+    if (area % w === 0) {
+      width = w;
+      length = area / w;
+    }
+  }
+
+  return [length, width];
+};
+
+// 31. https://leetcode.com/problems/keyboard-row/
+
+var findWords = function (words) {
+  const rows = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
+  const result = [];
+
+  for (let word of words) {
+    const lowercaseWord = word.toLowerCase();
+    let inSameRow = true;
+
+    for (let row of rows) {
+      const inRow = Array.from(lowercaseWord).every((char) =>
+        row.includes(char)
+      );
+      if (inRow) {
+        result.push(word);
+        break;
+      }
+    }
+  }
+
+  return result;
+};
+
+// 32.https://leetcode.com/problems/base-7
+
+var convertToBase7 = function (num) {
+  if (num === 0) {
+    return "0";
+  }
+
+  let result = "";
+  let isNegative = false;
+
+  if (num < 0) {
+    isNegative = true;
+    num = Math.abs(num);
+  }
+
+  while (num > 0) {
+    const remainder = num % 7;
+    result = remainder + result;
+    num = Math.floor(num / 7);
+  }
+
+  if (isNegative) {
+    result = "-" + result;
+  }
+
+  return result;
+};
+
+// 33. https://leetcode.com/problems/perfect-number/
+
+var checkPerfectNumber = function (num) {
+  if (num <= 1) {
+    return false;
+  }
+
+  let sum = 1;
+
+  for (let i = 2; i * i <= num; i++) {
+    if (num % i === 0) {
+      sum += i;
+
+      if (i * i !== num) {
+        sum += num / i;
+      }
+    }
+  }
+
+  return sum === num;
+};
+
+// 34. https://leetcode.com/problems/fibonacci-number/
+
+var fib = function (n) {
+  if (n <= 1) {
+    return n;
+  }
+
+  return fib(n - 1) + fib(n - 2);
+};
+
+// 35. https://leetcode.com/problems/detect-capital/
+
+var detectCapitalUse = function (word) {
+  if (word === word.toUpperCase() || word === word.toLowerCase()) {
+    return true;
+  }
+
+  if (
+    word[0] === word[0].toUpperCase() &&
+    word.slice(1) === word.slice(1).toLowerCase()
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
+// 36. https://leetcode.com/problems/longest-uncommon-subsequence-i/
+
+var findLUSlength = function (a, b) {
+  if (a === b) {
+    return -1;
+  }
+
+  return Math.max(a.length, b.length);
+};
+
+// 37. https://leetcode.com/problems/reverse-string-ii/
+
+var reverseStr = function (s, k) {
+  const arr = s.split("");
+
+  for (let i = 0; i < arr.length; i += 2 * k) {
+    let start = i;
+    let end = Math.min(i + k - 1, arr.length - 1);
+
+    while (start < end) {
+      const temp = arr[start];
+      arr[start] = arr[end];
+      arr[end] = temp;
+      start++;
+      end--;
+    }
+  }
+
+  return arr.join("");
+};
+
+// 38. https://leetcode.com/problems/student-attendance-record-i/
+
+var checkRecord = function (s) {
+  let absentCount = 0;
+  let lateCount = 0;
+
+  for (let char of s) {
+    if (char === "A") {
+      absentCount++;
+      lateCount = 0;
+    } else if (char === "L") {
+      lateCount++;
+    } else {
+      lateCount = 0;
+    }
+
+    if (absentCount >= 2 || lateCount >= 3) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+// 39. https://leetcode.com/problems/reverse-words-in-a-string-iii/
+
+var reverseWords = function (s) {
+  const words = s.split(" ");
+
+  for (let i = 0; i < words.length; i++) {
+    words[i] = words[i].split("").reverse().join("");
+  }
+
+  return words.join(" ");
+};
+
+// 40. https://leetcode.com/problems/maximum-average-subarray-i/
+
+var findMaxAverage = function (nums, k) {
+  let sum = 0;
+
+  for (let i = 0; i < k; i++) {
+    sum += nums[i];
+  }
+
+  let maxSum = sum;
+
+  for (let i = k; i < nums.length; i++) {
+    sum = sum + nums[i] - nums[i - k];
+    maxSum = Math.max(maxSum, sum);
+  }
+
+  const maxAverage = maxSum / k;
+
+  return maxAverage;
+};
